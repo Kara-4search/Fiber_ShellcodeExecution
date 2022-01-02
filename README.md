@@ -1,5 +1,4 @@
 # Fiber_ShellcodeExecution_CSharp
-# README update later
 
 - Blog link: not gonna update
 
